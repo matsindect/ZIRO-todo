@@ -5,6 +5,7 @@ import HomePage from "../view/LoggedIn.vue";
 import LoginPage from "../view/Login.vue";
 import RegisterPage from "../view/Signup.vue";
 import CurrentTasks from "../view/CurrentTasks.vue";
+import EditTasks from "../view/EditTask.vue";
 
 Vue.use(Router);
 
@@ -14,8 +15,9 @@ const router = new Router({
     { path: "/", component: LoginPage },
     { path: "/login", component: LoginPage },
     { path: "/register", component: RegisterPage },
-    { path: "/dashboard", component: HomePage, meta: { requiresAuth: true } },
+    { path: "/add-task", component: HomePage, meta: { requiresAuth: true } },
     { path: "/tasks", component: CurrentTasks, meta: { requiresAuth: true } },
+    { path: "/edit-task", component: EditTasks, meta: { requiresAuth: true } },
 
     // otherwise redirect to home
     { path: "*", redirect: "/" }

@@ -5,6 +5,7 @@
 
             <!-- Icon -->
             <div class="fadeIn first">
+              <h3>ZIRO TO DO</h3>
             </div>
             <p v-if="loginError">{{ loginError }}</p>
             <p v-if="accessToken">Login Successful</p>
@@ -46,7 +47,7 @@ export default {
         user_email_address: this.email,
         user_password: this.password
       }).then(response => {
-        this.$router.push("/dashboard");
+        this.$router.push("/tasks");
       });
     }
   }

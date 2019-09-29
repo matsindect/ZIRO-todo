@@ -12,7 +12,7 @@ router
 router
   .route('/:id')
   .get(todoController.getTask)
-  .delete(authController.protect, todoController.deleteTask)
-  .patch(authController.protect, todoController.updateTask);
+  .delete(todoController.deleteTask)
+  .patch(todoController.updateTask);
 
 module.exports = router;

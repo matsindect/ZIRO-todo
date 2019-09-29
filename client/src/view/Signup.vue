@@ -5,7 +5,7 @@
 
             <!-- Icon -->
             <div class="fadeIn first">
-            {{msg}}
+             <h3>ZIRO TO DO</h3>
             </div>
 
             <!-- Login Form -->
@@ -21,8 +21,9 @@
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-            <a class="underlineHover" href="#">Sign in</a>
+            <router-link class="underlineHover" to="/forgot-password">Forgot Password?</router-link>
+            
+            <router-link class="underlineHover" to="/login"> Signin</router-link> 
             </div>
 
         </div>

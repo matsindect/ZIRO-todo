@@ -18,13 +18,11 @@ const todoSchema = new mongoose.Schema({
   },
   todo_date: {
     type: Date,
-    required: [true, 'Date of todo required'],
-    select: false
+    required: [true, 'Date of todo required']
   },
   todo_time: {
     type: Date,
-    required: [true, 'Time to execute task is required'],
-    select: false
+    required: [true, 'Time to execute task is required']
   },
   user_id: [
     {

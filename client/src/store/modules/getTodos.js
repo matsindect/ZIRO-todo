@@ -1,3 +1,4 @@
+import Vue from "vue";
 import axios from "axios";
 
 const state = {
@@ -10,16 +11,20 @@ const state = {
 const actions = {
   loadTodos({ commit }) {
     axios
-      .get("http://localhost:8086/api/v1/todo")
-      .then(r => r.data)
+      .get(
+        `http://localhost:8086/api/v1/todo?user_id=${localStorage.getItem(
+          "user_id"
+        )}`,
+        state.headers
+      )
       .then(todosList => {
-        commit("SET_TODOS", todosList.data.tasks);
+        commit("SET_TODOS", todosList.data.data.tasks);
       });
   }
 };
 const mutations = {
   SET_TODOS(state, todosList) {
-    state.todosList = todosList;
+    Vue.set(state, "todosList", todosList);
   }
 };
 

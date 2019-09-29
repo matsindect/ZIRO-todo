@@ -12,6 +12,11 @@
             <p v-if="registrationError">{{ registrationError }}</p>
             <!-- Login Form -->
             <form @submit.prevent="TaskSubmit">
+            <label>Choose Task to Edit</label>
+            <select >
+                <option v-for="todo in todosList" :key="todo._id" value="">{{todo.todo_name}}</option>
+            </select>
+            
             <input type="text" id="login" class="fadeIn second" name="user_name" placeholder="Task Name" v-model="todo_name">
             <label>Priority Level</label>
             <select v-model="todo_priority">
@@ -23,7 +28,7 @@
             <label>Task Date</label>
             <input type="Date" id="login" class="fadeIn fifth" name="todo_date" v-model="todo_date">
             <label for="appt">Choose a time for your Task:</label>
-            <input type="text" id="login" class="fadeIn sixth" name="todo_time" v-model="todo_time" value="2019-09-21T18:24:57.434">
+            <input type="time" id="login" class="fadeIn sixth" name="todo_time" v-model="todo_time" value="13:30">
             <input type="submit" class="fadeIn eighth" value="Add Task">
             </form>
 
@@ -48,16 +53,25 @@ export default {
       todo_priority: "",
       todo_description: "",
       todo_date: "",
-      todo_time: ""
+      todo_time: "",
     };
   },
+  mounted() {
+    return this.$store.dispatch("loadTodos");
+  },
   computed: {
-    ...mapState(["registered", "registrationError", "todo"])
+    ...mapState(["registered", "registrationError", "todo"]),
+   todosList() {
+      return this.$store.state.getTodos.todosList;
+    }
   },
   methods: {
-    ...mapActions(["todoRegistration", "fetchTask"]),
-    TaskSubmit() {
-      this.todoRegistration({
+    
+    
+    fetchTodo(todoId){
+        axios
+      .patch(
+        `http://localhost:8086/api/v1/todo/${todoId}`,{
         todo_name: this.todo_name,
         todo_priority: this.todo_priority,
         todo_description: this.todo_description,
@@ -67,7 +81,8 @@ export default {
       }).then(() => {
         this.$router.push("/tasks");
       });
-    }
+    },
+     
   }
 };
 </script>
