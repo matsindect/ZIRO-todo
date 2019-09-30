@@ -11,13 +11,13 @@
             </div>
             <p v-if="registrationError">{{ registrationError }}</p>
             <!-- Login Form -->
-            <form @submit.prevent="TaskSubmit">
+            <form @submit.prevent="fetchTodo()">
             <label>Choose Task to Edit</label>
-            <select >
-                <option v-for="todo in todosList" :key="todo._id" value="">{{todo.todo_name}}</option>
+            <select v-model="todoId">
+                <option v-for="todo in todosList" :key="todo._id" v-bind:value="todo._id">{{todo.todo_name}}</option>
             </select>
-            
-            <input type="text" id="login" class="fadeIn second" name="user_name" placeholder="Task Name" v-model="todo_name">
+<!--             
+            <input type="text" id="login" class="fadeIn second" name="user_name"  v-model="todo_name"> -->
             <label>Priority Level</label>
             <select v-model="todo_priority">
                 <option value="High">High</option>
@@ -28,8 +28,8 @@
             <label>Task Date</label>
             <input type="Date" id="login" class="fadeIn fifth" name="todo_date" v-model="todo_date">
             <label for="appt">Choose a time for your Task:</label>
-            <input type="time" id="login" class="fadeIn sixth" name="todo_time" v-model="todo_time" value="13:30">
-            <input type="submit" class="fadeIn eighth" value="Add Task">
+            <input type="text" id="login" class="fadeIn sixth" name="todo_time" v-model="todo_time" placeholder="13:30">
+            <input type="submit" class="fadeIn eighth" value="Edit Task">
             </form>
 
             <!-- Remind Passowrd -->
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -54,6 +55,11 @@ export default {
       todo_description: "",
       todo_date: "",
       todo_time: "",
+      todoId:"",
+      headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*"
+  }
     };
   },
   mounted() {
@@ -68,17 +74,14 @@ export default {
   methods: {
     
     
-    fetchTodo(todoId){
+    fetchTodo(){
         axios
       .patch(
-        `http://localhost:8086/api/v1/todo/${todoId}`,{
-        todo_name: this.todo_name,
+        `http://localhost:8086/api/v1/todo/${this.todoId}`,{
         todo_priority: this.todo_priority,
         todo_description: this.todo_description,
         todo_date: this.todo_date,
-        todo_time: this.todo_time,
-        user_id: localStorage.getItem("user_id")
-      }).then(() => {
+      }, this.headers).then(() => {
         this.$router.push("/tasks");
       });
     },
