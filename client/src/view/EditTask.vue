@@ -28,7 +28,7 @@
             <label>Task Date</label>
             <input type="Date" id="login" class="fadeIn fifth" name="todo_date" v-model="todo_date">
             <label for="appt">Choose a time for your Task:</label>
-            <input type="text" id="login" class="fadeIn sixth" name="todo_time" v-model="todo_time" placeholder="13:30">
+            <input type="text" id="login" class="fadeIn sixth" name="todo_time" v-model="todo_time" placeholder="2019-09-29T01:55:49.373+00:00">
             <input type="submit" class="fadeIn eighth" value="Edit Task">
             </form>
 
